@@ -8,13 +8,15 @@ datasource db {
 }
 
 model Organization {
-  id        String @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
   email     String
   latitude  Float
   longitude Float
   phone     String
   password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 
   pet Pet[]
 
@@ -25,11 +27,14 @@ model Pet {
   id              String             @id @default(uuid())
   name            String
   description     String
+  isAdopted       Boolean
   age             PetAge
   size            PetSize
   energy          PetEnergy
   dependencyLevel PetDependencyLevel
   environment     PetEnvironment
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime?          @updatedAt
 
   organizationId String
   organization   Organization  @relation(fields: [organizationId], references: [id])
