@@ -4,7 +4,7 @@ import { compare, hash } from 'bcryptjs'
 import { OrganizationNotFoundError } from '../errors/organization-not-found-error'
 import { OrganizationAlreadyExistsError } from '../errors/organization-already-exists-error'
 
-interface UpdateOrganizationUseCaseRequest {
+export interface UpdateOrganizationUseCaseRequest {
   id: string
   name?: string
   email?: string

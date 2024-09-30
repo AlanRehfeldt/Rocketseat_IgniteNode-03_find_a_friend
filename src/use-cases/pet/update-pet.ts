@@ -11,7 +11,7 @@ import { PetNotFoundError } from '../errors/pet-not-found-error'
 import { OrganizationRepository } from '@/repositories/organization.repository'
 import { OrganizationNotFoundError } from '../errors/organization-not-found-error'
 
-interface UpdatePetUseCaseRequest {
+export interface UpdatePetUseCaseRequest {
   id: string
   name?: string
   description?: string
@@ -61,18 +61,17 @@ export class UpdatePetUseCase {
       }
     }
 
-    const petUpdated = await this.petRepository.update({
-      id,
-      name: name ?? pet.name,
-      description: description ?? pet.description,
-      isAdopted: isAdopted ?? pet.isAdopted,
-      age: age ?? pet.age,
-      size: size ?? pet.size,
-      energy: energy ?? pet.energy,
-      dependencyLevel: dependencyLevel ?? pet.dependencyLevel,
-      environment: environment ?? pet.environment,
-      organizationId: organizationId ?? pet.organizationId,
-    })
+    pet.name = name ?? pet.name
+    pet.description = description ?? pet.description
+    pet.isAdopted = isAdopted ?? pet.isAdopted
+    pet.age = age ?? pet.age
+    pet.size = size ?? pet.size
+    pet.energy = energy ?? pet.energy
+    pet.dependencyLevel = dependencyLevel ?? pet.dependencyLevel
+    pet.environment = environment ?? pet.environment
+    pet.organizationId = organizationId ?? pet.organizationId
+
+    const petUpdated = await this.petRepository.update(pet)
 
     return { pet: petUpdated }
   }
